@@ -1,0 +1,77 @@
+<svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect x="0" y="0" width="600" height="400" rx="10" fill="#f8fafc" />
+  
+  <!-- Title -->
+  <text x="300" y="40" text-anchor="middle" font-family="Arial" font-size="22" font-weight="bold" fill="#0f172a">Critical HPC Performance Metrics</text>
+  
+  <!-- Metric Categories -->
+  <g transform="translate(50, 80)">
+    <!-- Computation -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="150" height="120" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2" />
+      <circle cx="75" cy="30" r="20" fill="#3b82f6" />
+      <text x="75" y="35" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#ffffff">C</text>
+      <text x="75" y="70" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="#1e3a8a">Computation</text>
+      <line x1="30" y1="85" x2="120" y2="85" stroke="#bfdbfe" stroke-width="1" />
+      <text x="75" y="100" text-anchor="middle" font-family="Arial" font-size="11" fill="#3b82f6">Flops/s, CPI, IPC</text>
+      <text x="75" y="115" text-anchor="middle" font-family="Arial" font-size="11" fill="#3b82f6">Instruction counts</text>
+    </g>
+    
+    <!-- Memory -->
+    <g transform="translate(180, 0)">
+      <rect x="0" y="0" width="150" height="120" rx="8" fill="#fff7ed" stroke="#fed7aa" stroke-width="2" />
+      <circle cx="75" cy="30" r="20" fill="#f97316" />
+      <text x="75" y="35" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#ffffff">M</text>
+      <text x="75" y="70" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="#7c2d12">Memory</text>
+      <line x1="30" y1="85" x2="120" y2="85" stroke="#fed7aa" stroke-width="1" />
+      <text x="75" y="100" text-anchor="middle" font-family="Arial" font-size="11" fill="#f97316">Bandwidth, Cache hit/miss</text>
+      <text x="75" y="115" text-anchor="middle" font-family="Arial" font-size="11" fill="#f97316">Access patterns</text>
+    </g>
+    
+    <!-- Communication -->
+    <g transform="translate(360, 0)">
+      <rect x="0" y="0" width="150" height="120" rx="8" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="2" />
+      <circle cx="75" cy="30" r="20" fill="#10b981" />
+      <text x="75" y="35" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#ffffff">N</text>
+      <text x="75" y="70" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="#065f46">Communication</text>
+      <line x1="30" y1="85" x2="120" y2="85" stroke="#a7f3d0" stroke-width="1" />
+      <text x="75" y="100" text-anchor="middle" font-family="Arial" font-size="11" fill="#10b981">Latency, Bandwidth</text>
+      <text x="75" y="115" text-anchor="middle" font-family="Arial" font-size="11" fill="#10b981">Message sizes</text>
+    </g>
+    
+    <!-- I/O -->
+    <g transform="translate(90, 150)">
+      <rect x="0" y="0" width="150" height="120" rx="8" fill="#fdf4ff" stroke="#f5d0fe" stroke-width="2" />
+      <circle cx="75" cy="30" r="20" fill="#d946ef" />
+      <text x="75" y="35" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#ffffff">I/O</text>
+      <text x="75" y="70" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="#701a75">Input/Output</text>
+      <line x1="30" y1="85" x2="120" y2="85" stroke="#f5d0fe" stroke-width="1" />
+      <text x="75" y="100" text-anchor="middle" font-family="Arial" font-size="11" fill="#d946ef">Throughput, IOPS</text>
+      <text x="75" y="115" text-anchor="middle" font-family="Arial" font-size="11" fill="#d946ef">File access patterns</text>
+    </g>
+    
+    <!-- System -->
+    <g transform="translate(270, 150)">
+      <rect x="0" y="0" width="150" height="120" rx="8" fill="#f0f9ff" stroke="#bae6fd" stroke-width="2" />
+      <circle cx="75" cy="30" r="20" fill="#0ea5e9" />
+      <text x="75" y="35" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#ffffff">S</text>
+      <text x="75" y="70" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="#0c4a6e">System</text>
+      <line x1="30" y1="85" x2="120" y2="85" stroke="#bae6fd" stroke-width="1" />
+      <text x="75" y="100" text-anchor="middle" font-family="Arial" font-size="11" fill="#0ea5e9">Power consumption</text>
+      <text x="75" y="115" text-anchor="middle" font-family="Arial" font-size="11" fill="#0ea5e9">Energy efficiency</text>
+    </g>
+  </g>
+  
+  <!-- Metrics Impact -->
+  <g transform="translate(50, 300)">
+    <text x="0" y="0" font-family="Arial" font-size="16" font-weight="bold" fill="#0f172a">Metrics Impact on HPC Performance</text>
+    <line x1="0" y1="10" x2="500" y2="10" stroke="#e2e8f0" stroke-width="2" />
+    
+    <text x="0" y="30" font-family="Arial" font-size="12" fill="#475569">• Computation metrics reveal raw processing efficiency and utilization</text>
+    <text x="0" y="50" font-family="Arial" font-size="12" fill="#475569">• Memory metrics often expose the primary bottlenecks in HPC applications</text>
+    <text x="0" y="70" font-family="Arial" font-size="12" fill="#475569">• Communication metrics are critical for multi-node performance at scale</text>
+    <text x="0" y="90" font-family="Arial" font-size="12" fill="#475569">• I/O metrics become dominant in data-intensive applications</text>
+    <text x="0" y="110" font-family="Arial" font-size="12" fill="#475569">• System metrics are increasingly important for large-scale deployments</text>
+  </g>
+</svg>

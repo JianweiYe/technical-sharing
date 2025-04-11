@@ -1,0 +1,277 @@
+:root {
+    --primary-color: #000;
+    --secondary-color: #333;
+    --accent-color: #0070f3;
+    --text-primary: #333;
+    --text-secondary: #666;
+    --border-color: #e4e4e7;
+    --bg-light: #f9f9fb;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.5;
+    color: var(--text-primary);
+}
+
+/* Font for monospace text */
+.font-geist-mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Performance Metrics Styling */
+.metrics-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+}
+
+.performance-metric {
+    padding: 16px;
+    border-radius: 8px;
+    background-color: var(--bg-light);
+    border: 1px solid var(--border-color);
+}
+
+.metric-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.metric-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.metric-icon.computation {
+    background-color: rgba(79, 70, 229, 0.1);
+    color: #4f46e5;
+}
+
+.metric-icon.memory {
+    background-color: rgba(234, 88, 12, 0.1);
+    color: #ea580c;
+}
+
+.metric-icon.communication {
+    background-color: rgba(5, 150, 105, 0.1);
+    color: #059669;
+}
+
+.metric-icon.io {
+    background-color: rgba(217, 70, 239, 0.1);
+    color: #d946ef;
+}
+
+.metric-icon.system {
+    background-color: rgba(14, 165, 233, 0.1);
+    color: #0ea5e9;
+}
+
+/* Chip Comparison Styling */
+.chip-tabs {
+    display: flex;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 16px;
+}
+
+.chip-tab {
+    padding: 12px 20px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    color: var(--text-secondary);
+}
+
+.chip-tab.active {
+    border-bottom-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.chip-content {
+    display: none;
+}
+
+.chip-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Solutions Tabs Styling */
+.solutions-tabs {
+    display: flex;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.solution-tab {
+    padding: 12px 20px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    color: var(--text-secondary);
+}
+
+.solution-tab.active {
+    border-bottom-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.solution-content {
+    display: none;
+}
+
+.solution-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.solution-card {
+    padding: 16px;
+    border-radius: 8px;
+    background-color: var(--bg-light);
+    border: 1px solid var(--border-color);
+}
+
+.solution-card-header {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: var(--primary-color);
+}
+
+/* Workflow Styling */
+.workflow-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.workflow-step {
+    display: flex;
+    gap: 16px;
+}
+
+.workflow-number {
+    width: 32px;
+    height: 32px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.workflow-content {
+    flex-grow: 1;
+}
+
+.workflow-content h4 {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.workflow-content ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    color: var(--text-secondary);
+}
+
+/* Insights and Recommendations Styling */
+.insight-item, .recommendation-item {
+    display: flex;
+    gap: 16px;
+}
+
+.insight-number, .recommendation-number {
+    width: 28px;
+    height: 28px;
+    background-color: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Table Styling */
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+th {
+    background-color: var(--bg-light);
+    font-weight: 500;
+    text-align: left;
+    padding: 12px 16px;
+}
+
+td {
+    padding: 12px 16px;
+    vertical-align: top;
+}
+
+tr:not(:last-child) td {
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .chip-tabs, .solutions-tabs {
+        padding-bottom: 8px;
+    }
+    
+    .chip-tab, .solution-tab {
+        padding: 8px 16px;
+    }
+    
+    .workflow-step {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .workflow-number {
+        margin-bottom: 4px;
+    }
+    
+    .metrics-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .insight-item, .recommendation-item {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .insight-number, .recommendation-number {
+        margin-bottom: 4px;
+    }
+}

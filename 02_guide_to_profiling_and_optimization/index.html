@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Profiling & Optimization for HPC Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+    <header class="bg-black text-white py-6 px-6 md:px-12 border-b border-gray-800">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-2xl md:text-3xl font-bold tracking-tight">A Quick Guide of Profiling & Optimization Analysis</h1>
+            <p class="text-gray-400 mt-1">For High-Performance Computing Desktop Software</p>
+        </div>
+    </header>
+
+    <main class="flex-grow px-6 md:px-12 py-8 max-w-6xl mx-auto w-full">
+        <!-- Introduction -->
+        <section class="mb-12">
+            <div class="rounded-lg bg-white border border-gray-200 shadow-sm p-6 md:p-8">
+                <h2 class="text-xl md:text-2xl font-semibold mb-4">Introduction</h2>
+                <p class="text-gray-700 leading-relaxed">
+                    High-Performance Computing (HPC) software requires meticulous profiling and optimization to achieve peak performance. This analysis provides a comprehensive overview of concepts, solutions, and technical approaches across different hardware architectures and deployment platforms.
+                </p>
+            </div>
+        </section>
+
+        <!-- Key Concepts and Metrics Section -->
+        <section class="mb-12" id="summary-section">
+            <h2 class="text-xl md:text-2xl font-semibold mb-6 flex items-center">
+                <span class="bg-black text-white w-8 h-8 inline-flex items-center justify-center rounded-full mr-3 text-sm">1</span>
+                Summary: Concepts, Metrics, and Platform Differences
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Key Concepts Card -->
+                <div class="rounded-lg bg-white border border-gray-200 shadow-sm p-6 h-full">
+                    <div class="flex items-center mb-4">
+                        <i data-lucide="lightbulb" class="w-5 h-5 mr-2 text-gray-700"></i>
+                        <h3 class="text-lg font-medium">Key Concepts</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex">
+                            <span class="font-medium mr-2">•</span>
+                            <span><strong>Profiling:</strong> Systematic measurement of application performance to identify bottlenecks</span>
+                        </li>
+                        <li class="flex">
+                            <span class="font-medium mr-2">•</span>
+                            <span><strong>Hardware Performance Monitoring:</strong> Dedicated units providing detailed views of software-hardware interaction</span>
+                        </li>
+                        <li class="flex">
+                            <span class="font-medium mr-2">•</span>
+                            <span><strong>Parallelization:</strong> Division of workloads across multiple processing units</span>
+                        </li>
+                        <li class="flex">
+                            <span class="font-medium mr-2">•</span>
+                            <span><strong>Heterogeneous Computing:</strong> Utilizing different processor types together</span>
+                        </li>
+                        <li class="flex">
+                            <span class="font-medium mr-2">•</span>
+                            <span><strong>Scalability:</strong> Application's ability to efficiently utilize additional resources</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Performance Metrics Card -->
+                <div class="rounded-lg bg-white border border-gray-200 shadow-sm p-6 h-full">
+                    <div class="flex items-center mb-4">
+                        <i data-lucide="bar-chart-2" class="w-5 h-5 mr-2 text-gray-700"></i>
+                        <h3 class="text-lg font-medium">Critical Performance Metrics</h3>
+                    </div>
+                    <div class="metrics-container">
+                        <div class="performance-metric">
+                            <div class="metric-header">
+                                <span class="metric-icon computation"></span>
+                                <h4>Computation</h4>
+                            </div>
+                            <p>Flops/s, CPI (cycles per instruction), Instruction counts</p>
+                        </div>
+                        <div class="performance-metric">
+                            <div class="metric-header">
+                                <span class="metric-icon memory"></span>
+                                <h4>Memory</h4>
+                            </div>
+                            <p>Bandwidth, Cache hit/miss rates, Memory access patterns</p>
+                        </div>
+                        <div class="performance-metric">
+                            <div class="metric-header">
+                                <span class="metric-icon communication"></span>
+                                <h4>Communication</h4>
+                            </div>
+                            <p>Inter-node latency, Network bandwidth, Message sizes</p>
+                        </div>
+                        <div class="performance-metric">
+                            <div class="metric-header">
+                                <span class="metric-icon io"></span>
+                                <h4>I/O</h4>
+                            </div>
+                            <p>I/O throughput, Operations per second, File access patterns</p>
+                        </div>
+                        <div class="performance-metric">
+                            <div class="metric-header">
+                                <span class="metric-icon system"></span>
+                                <h4>System</h4>
+                            </div>
+                            <p>Power consumption, Energy efficiency, Clock frequency</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Platform Differences -->
+            <div class="mt-6 rounded-lg bg-white border border-gray-200 shadow-sm p-6">
+                <div class="flex items-center mb-4">
+                    <i data-lucide="cpu" class="w-5 h-5 mr-2 text-gray-700"></i>
+                    <h3 class="text-lg font-medium">Platform Differences</h3>
+                </div>
+                
+                <div class="chip-comparison">
+                    <div class="chip-tabs">
+                        <button class="chip-tab active" data-chip="nvidia">NVIDIA</button>
+                        <button class="chip-tab" data-chip="amd">AMD</button>
+                        <button class="chip-tab" data-chip="arm">ARM</button>
+                        <button class="chip-tab" data-chip="intel">Intel</button>
+                    </div>
+                    
+                    <div class="chip-content-wrapper">
+                        <div class="chip-content active" id="nvidia-content">
+                            <h4 class="text-base font-medium mb-2">NVIDIA Architecture</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex">
+                                    <span class="font-medium mr-2">•</span>
+                                    <span><strong>Focus:</strong> GPU acceleration with comprehensive CUDA tooling</span>
+                                </li>
+                                <li class="flex">
+                                    <span class="font-medium mr-2">•</span>
+                                    <span><strong>Primary Tools:</strong> NVIDIA HPC SDK, Nsight Systems, Nsight Compute</span>
+                                </li>
+                                <li class="flex">
+                                    <span class="font-medium mr-2">•</span>
+                                    <span><strong>Key Libraries:</strong> cuBLAS, cuSOLVER, cuFFT, cuSPARSE</span>
+                                </li>
+                                <li class="flex">
+                                    <span class="font-medium mr-2">•</span>
+                                    <span><strong>Differentiators:</strong> Mature ecosystem, extensive documentation, industry-leading performance</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="chip-content" id="amd-content">
+                            <h4 class="text-base font-medium mb-2">AMD Architecture</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex">
+                                    <span class="font-medium mr-2">•</span>
+                                    <span><strong>Focus:</strong> Both CPU and GPU optimization with ROCm platform</span>
+                                </li>
+                                <li class="flex">
+                                    <span class="font-medium mr-2">•</span>
+                                    <span><strong>Primary Tools:</strong> ROC-profiler, Omniperf, Omnitrace, Radeon GPU Profiler</span>
+                                </li>
+                                <li class="flex">
+                                    <span class="font-medium mr-2">•</span>
+                                    <span><strong>Workflow Approach:</strong> Tool selection based on profiling objectives</span>
+                                </li>
+                                <li class="flex">
+                                    <span class="font-medium mr-2">•</span>
+                                    <span><strong>Differentiators:</strong> Growing ecosystem with competitive price/performance ratio</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="chip-content" id="arm-content">
+                            <h4 class="text-base font-medium mb-2">ARM Architecture</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex">
+                                    <span class="font-medium mr-2">•</span>
+                                    <span><strong>Focus:</strong> Energy-efficient HPC with AArch64 optimization</span>
+                                </li>
+                                <li class="flex">
+                                    <span class="font-medium mr-2">•</span>
+                                    <span><strong>Primary Tools:</strong> ARM Allinea Studio (MAP profiler, Arm Compiler)</span>
+                                </li>
+                                <li class="flex">
+                                    <span class="font-medium mr-2">•</span>
+                                    <span><strong>Unique Features:</strong> Statistical Profiling Extension (SPE)</span>
+                                </li>
+                                <li class="flex">
+                                    <span class="font-medium mr-2">•</span>
+                                    <span><strong>Differentiators:</strong> Leading energy efficiency, important for large-scale deployments</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="chip-content" id="intel-content">
+                            <h4 class="text-base font-medium mb-2">Intel Architecture</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex">
+                                    <span class="font-medium mr-2">•</span>
+                                    <span><strong>Focus:</strong> Comprehensive optimization across CPUs and recently GPUs</span>
+                                </li>
+                                <li class="flex">
+                                    <span class="font-medium mr-2">•</span>
+                                    <span><strong>Primary Tools:</strong> Intel VTune Profiler, Intel Advisor, Intel Trace Analyzer</span>
+                                </li>
+                                <li class="flex">
+                                    <span class="font-medium mr-2">•</span>
+                                    <span><strong>Analysis Capabilities:</strong> Microarchitecture, memory, parallelism analysis</span>
+                                </li>
+                                <li class="flex">
+                                    <span class="font-medium mr-2">•</span>
+                                    <span><strong>Differentiators:</strong> Mature toolchain with strong integration across the software stack</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solutions Comparison Section -->
+        <section class="mb-12" id="solutions-section">
+            <h2 class="text-xl md:text-2xl font-semibold mb-6 flex items-center">
+                <span class="bg-black text-white w-8 h-8 inline-flex items-center justify-center rounded-full mr-3 text-sm">2</span>
+                Comparative Solutions: Best Practices
+            </h2>
+            
+            <div class="rounded-lg bg-white border border-gray-200 shadow-sm p-6">
+                <p class="text-gray-700 mb-6">
+                    Understanding the optimal approaches for different architectures is critical for maximizing HPC performance. Below are the recommended best practices for each major platform:
+                </p>
+                
+                <div class="solutions-tabs mb-4">
+                    <button class="solution-tab active" data-solution="nvidia">NVIDIA</button>
+                    <button class="solution-tab" data-solution="amd">AMD</button>
+                    <button class="solution-tab" data-solution="arm">ARM</button>
+                    <button class="solution-tab" data-solution="intel">Intel</button>
+                </div>
+                
+                <div class="solution-content-wrapper">
+                    <!-- NVIDIA Best Practices -->
+                    <div class="solution-content active" id="nvidia-solution">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="solution-card">
+                                <h4 class="solution-card-header">
+                                    <i data-lucide="code" class="w-4 h-4 mr-2"></i>
+                                    Development Approach
+                                </h4>
+                                <ul class="space-y-2">
+                                    <li>Utilize NVIDIA HPC SDK compilers</li>
+                                    <li>Apply multiple programming models (C++, OpenACC, CUDA)</li>
+                                    <li>Mix abstraction levels for portability and performance</li>
+                                </ul>
+                            </div>
+                            <div class="solution-card">
+                                <h4 class="solution-card-header">
+                                    <i data-lucide="settings" class="w-4 h-4 mr-2"></i>
+                                    Optimization Techniques
+                                </h4>
+                                <ul class="space-y-2">
+                                    <li>Maximize GPU utilization</li>
+                                    <li>Optimize memory transfers between CPU-GPU</li>
+                                    <li>Leverage GPU-accelerated libraries</li>
+                                    <li>Employ CUDA-Aware MPI for multi-node setups</li>
+                                </ul>
+                            </div>
+                            <div class="solution-card">
+                                <h4 class="solution-card-header">
+                                    <i data-lucide="search" class="w-4 h-4 mr-2"></i>
+                                    Profiling Strategy
+                                </h4>
+                                <ul class="space-y-2">
+                                    <li>System-level analysis with Nsight Systems</li>
+                                    <li>Kernel-level analysis with Nsight Compute</li>
+                                    <li>Use NVTX annotations for region marking</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- AMD Best Practices -->
+                    <div class="solution-content" id="amd-solution">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="solution-card">
+                                <h4 class="solution-card-header">
+                                    <i data-lucide="tool" class="w-4 h-4 mr-2"></i>
+                                    Tool Selection Strategy
+                                </h4>
+                                <ul class="space-y-2">
+                                    <li>Omnitrace for hotspot identification</li>
+                                    <li>Omniperf and AMD uProf for roofline profiling</li>
+                                    <li>ROC-profiler for accessing hardware counters</li>
+                                </ul>
+                            </div>
+                            <div class="solution-card">
+                                <h4 class="solution-card-header">
+                                    <i data-lucide="settings" class="w-4 h-4 mr-2"></i>
+                                    Optimization Approaches
+                                </h4>
+                                <ul class="space-y-2">
+                                    <li>Leverage AMD-specific libraries (rocSOLVER)</li>
+                                    <li>Use Kokkos/OpenSYCL for accelerator portability</li>
+                                    <li>Implement HIP for dual AMD/NVIDIA support</li>
+                                </ul>
+                            </div>
+                            <div class="solution-card">
+                                <h4 class="solution-card-header">
+                                    <i data-lucide="activity" class="w-4 h-4 mr-2"></i>
+                                    Performance Analysis
+                                </h4>
+                                <ul class="space-y-2">
+                                    <li>Monitor system-level metrics</li>
+                                    <li>Apply roofline analysis to understand limits</li>
+                                    <li>Implement power profiling for efficiency</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- ARM Best Practices -->
+                    <div class="solution-content" id="arm-solution">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="solution-card">
+                                <h4 class="solution-card-header">
+                                    <i data-lucide="book" class="w-4 h-4 mr-2"></i>
+                                    Library Utilization
+                                </h4>
+                                <ul class="space-y-2">
+                                    <li>ARM Performance Libraries for optimized BLAS</li>
+                                    <li>Interleave-Batch Functions for linear algebra</li>
+                                    <li>GEMMT Routines for partial results needs</li>
+                                </ul>
+                            </div>
+                            <div class="solution-card">
+                                <h4 class="solution-card-header">
+                                    <i data-lucide="code" class="w-4 h-4 mr-2"></i>
+                                    Compiler Optimization
+                                </h4>
+                                <ul class="space-y-2">
+                                    <li>Profile Guided Optimization (PGO)</li>
+                                    <li>ARM Compiler for Linux (AArch64 specific)</li>
+                                    <li>Architecture-specific code paths</li>
+                                </ul>
+                            </div>
+                            <div class="solution-card">
+                                <h4 class="solution-card-header">
+                                    <i data-lucide="database" class="w-4 h-4 mr-2"></i>
+                                    Memory Management
+                                </h4>
+                                <ul class="space-y-2">
+                                    <li>Memory pool allocation to prevent fragmentation</li>
+                                    <li>Reduce BLAS overheads for small problems</li>
+                                    <li>Optimize cache utilization patterns</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Intel Best Practices -->
+                    <div class="solution-content" id="intel-solution">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="solution-card">
+                                <h4 class="solution-card-header">
+                                    <i data-lucide="search" class="w-4 h-4 mr-2"></i>
+                                    Performance Analysis
+                                </h4>
+                                <ul class="space-y-2">
+                                    <li>Hotspot analysis with Intel VTune Profiler</li>
+                                    <li>Microarchitecture analysis for pipeline efficiency</li>
+                                    <li>Memory access pattern optimization</li>
+                                </ul>
+                            </div>
+                            <div class="solution-card">
+                                <h4 class="solution-card-header">
+                                    <i data-lucide="settings" class="w-4 h-4 mr-2"></i>
+                                    Optimization Strategies
+                                </h4>
+                                <ul class="space-y-2">
+                                    <li>Vectorization using advanced SIMD capabilities</li>
+                                    <li>Thread optimization for NUMA awareness</li>
+                                    <li>MPI optimization with Intel libraries</li>
+                                </ul>
+                            </div>
+                            <div class="solution-card">
+                                <h4 class="solution-card-header">
+                                    <i data-lucide="code" class="w-4 h-4 mr-2"></i>
+                                    Compilation Techniques
+                                </h4>
+                                <ul class="space-y-2">
+                                    <li>Profile-Guided Optimization</li>
+                                    <li>Interprocedural Optimization</li>
+                                    <li>Processor-specific optimizations</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Analysis Section -->
+        <section class="mb-12" id="technical-section">
+            <h2 class="text-xl md:text-2xl font-semibold mb-6 flex items-center">
+                <span class="bg-black text-white w-8 h-8 inline-flex items-center justify-center rounded-full mr-3 text-sm">3</span>
+                Technical Analysis: Trends, Tools, and Workflows
+            </h2>
+            
+            <!-- Emerging Trends Card -->
+            <div class="rounded-lg bg-white border border-gray-200 shadow-sm p-6 mb-6">
+                <div class="flex items-center mb-4">
+                    <i data-lucide="trending-up" class="w-5 h-5 mr-2 text-gray-700"></i>
+                    <h3 class="text-lg font-medium">Emerging Trends in HPC</h3>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="text-base font-medium mb-2">Convergence of HPC and AI</h4>
+                        <ul class="space-y-2 text-gray-700 mb-6">
+                            <li class="flex">
+                                <span class="font-medium mr-2">•</span>
+                                <span>ML algorithms increasingly used to optimize HPC applications</span>
+                            </li>
+                            <li class="flex">
+                                <span class="font-medium mr-2">•</span>
+                                <span>HPC infrastructure leveraged for training complex AI models</span>
+                            </li>
+                            <li class="flex">
+                                <span class="font-medium mr-2">•</span>
+                                <span>Auto-tuning systems using ML for parameter optimization</span>
+                            </li>
+                        </ul>
+                        
+                        <h4 class="text-base font-medium mb-2">Architectural Evolution</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex">
+                                <span class="font-medium mr-2">•</span>
+                                <span>Exascale Computing (10^18 FLOPS) revolutionizing simulations</span>
+                            </li>
+                            <li class="flex">
+                                <span class="font-medium mr-2">•</span>
+                                <span>Heterogeneous Computing with diverse processor types</span>
+                            </li>
+                            <li class="flex">
+                                <span class="font-medium mr-2">•</span>
+                                <span>Specialized accelerators for computational patterns</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-base font-medium mb-2">Deployment Paradigms</h4>
+                        <ul class="space-y-2 text-gray-700 mb-6">
+                            <li class="flex">
+                                <span class="font-medium mr-2">•</span>
+                                <span>Cloud-Based HPC with on-demand resource access</span>
+                            </li>
+                            <li class="flex">
+                                <span class="font-medium mr-2">•</span>
+                                <span>Edge Computing bringing HPC closer to data sources</span>
+                            </li>
+                            <li class="flex">
+                                <span class="font-medium mr-2">•</span>
+                                <span>Containerization for improved portability and deployment</span>
+                            </li>
+                        </ul>
+                        
+                        <h4 class="text-base font-medium mb-2">Sustainability Focus</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex">
+                                <span class="font-medium mr-2">•</span>
+                                <span>Energy-efficient architectures critical for large scales</span>
+                            </li>
+                            <li class="flex">
+                                <span class="font-medium mr-2">•</span>
+                                <span>Dynamic power management techniques gaining importance</span>
+                            </li>
+                            <li class="flex">
+                                <span class="font-medium mr-2">•</span>
+                                <span>Performance-per-watt metrics alongside raw performance</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tooling Landscape Card -->
+            <div class="rounded-lg bg-white border border-gray-200 shadow-sm p-6 mb-6">
+                <div class="flex items-center mb-4">
+                    <i data-lucide="wrench" class="w-5 h-5 mr-2 text-gray-700"></i>
+                    <h3 class="text-lg font-medium">Comprehensive Tooling Landscape</h3>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tool Category</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Key Examples</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Primary Functions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-4 py-4 whitespace-nowrap font-medium">System-Wide Profilers</td>
+                                <td class="px-4 py-4">NVIDIA Nsight Systems<br>AMD Omnitrace<br>Intel VTune Profiler</td>
+                                <td class="px-4 py-4">Identify overall application bottlenecks and resource utilization</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-4 whitespace-nowrap font-medium">Kernel/Code Profilers</td>
+                                <td class="px-4 py-4">NVIDIA Nsight Compute<br>AMD Omniperf<br>Intel Advisor</td>
+                                <td class="px-4 py-4">Detailed analysis of specific code sections or compute kernels</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-4 whitespace-nowrap font-medium">Communication Analyzers</td>
+                                <td class="px-4 py-4">Intel Trace Analyzer<br>Vampir<br>TAU</td>
+                                <td class="px-4 py-4">Analyze message passing and communication patterns</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-4 whitespace-nowrap font-medium">Memory Analyzers</td>
+                                <td class="px-4 py-4">Valgrind<br>Intel Inspector<br>MALT</td>
+                                <td class="px-4 py-4">Identify memory leaks, access patterns, and inefficiencies</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-4 whitespace-nowrap font-medium">Cross-Platform Tools</td>
+                                <td class="px-4 py-4">Likwid-perfctr<br>HPCToolkit<br>PAPI</td>
+                                <td class="px-4 py-4">Hardware performance counter access across different architectures</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Workflow Card -->
+            <div class="rounded-lg bg-white border border-gray-200 shadow-sm p-6">
+                <div class="flex items-center mb-4">
+                    <i data-lucide="git-branch" class="w-5 h-5 mr-2 text-gray-700"></i>
+                    <h3 class="text-lg font-medium">Effective Profiling and Optimization Workflow</h3>
+                </div>
+                
+                <div class="workflow-container">
+                    <div class="workflow-step">
+                        <div class="workflow-number">1</div>
+                        <div class="workflow-content">
+                            <h4>Performance Assessment</h4>
+                            <ul>
+                                <li>Run initial benchmarks</li>
+                                <li>Identify application characteristics</li>
+                                <li>Set clear performance targets</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="workflow-number">2</div>
+                        <div class="workflow-content">
+                            <h4>Systematic Profiling</h4>
+                            <ul>
+                                <li>System-level profiling</li>
+                                <li>Targeted component analysis</li>
+                                <li>Collect hardware performance counters</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="workflow-number">3</div>
+                        <div class="workflow-content">
+                            <h4>Bottleneck Identification</h4>
+                            <ul>
+                                <li>Analyze hotspots</li>
+                                <li>Identify resource constraints</li>
+                                <li>Map bottlenecks to code regions</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="workflow-number">4</div>
+                        <div class="workflow-content">
+                            <h4>Targeted Optimization</h4>
+                            <ul>
+                                <li>Prioritize based on impact</li>
+                                <li>Apply architecture-specific optimizations</li>
+                                <li>Consider algorithmic improvements</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="workflow-number">5</div>
+                        <div class="workflow-content">
+                            <h4>Validation and Iteration</h4>
+                            <ul>
+                                <li>Measure performance impact</li>
+                                <li>Ensure no regressions</li>
+                                <li>Iterate for continuous improvement</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Insights and Recommendations Section -->
+        <section class="mb-8" id="insights-section">
+            <h2 class="text-xl md:text-2xl font-semibold mb-6 flex items-center">
+                <span class="bg-black text-white w-8 h-8 inline-flex items-center justify-center rounded-full mr-3 text-sm">4</span>
+                Key Insights and Recommendations
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Strategic Insights Card -->
+                <div class="rounded-lg bg-white border border-gray-200 shadow-sm p-6">
+                    <div class="flex items-center mb-4">
+                        <i data-lucide="lightbulb" class="w-5 h-5 mr-2 text-gray-700"></i>
+                        <h3 class="text-lg font-medium">Strategic Insights</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="insight-item">
+                            <div class="insight-number">1</div>
+                            <div>
+                                <h4 class="font-medium">Platform-Specific Optimization Yields Highest Returns</h4>
+                                <p class="text-gray-700">While cross-platform frameworks offer portability, the most significant performance gains come from architecture-specific optimizations.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="insight-item">
+                            <div class="insight-number">2</div>
+                            <div>
+                                <h4 class="font-medium">Data Movement Often Dominates Performance</h4>
+                                <p class="text-gray-700">In many HPC applications, data movement (between memory hierarchies or compute nodes) represents the primary bottleneck, not computational capacity.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="insight-item">
+                            <div class="insight-number">3</div>
+                            <div>
+                                <h4 class="font-medium">Profiling Should Precede Optimization</h4>
+                                <p class="text-gray-700">"Premature optimization is the root of all evil" holds true; always profile first to identify actual bottlenecks rather than optimizing based on assumptions.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="insight-item">
+                            <div class="insight-number">4</div>
+                            <div>
+                                <h4 class="font-medium">Heterogeneous Computing Requires Holistic Approach</h4>
+                                <p class="text-gray-700">As systems increasingly combine different processor types, optimization must consider the entire computational pipeline, not just individual components.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="insight-item">
+                            <div class="insight-number">5</div>
+                            <div>
+                                <h4 class="font-medium">Sustainable HPC Requires Energy-Aware Design</h4>
+                                <p class="text-gray-700">Performance per watt is becoming as important as raw performance, particularly for large-scale deployments.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recommendations Card -->
+                <div class="rounded-lg bg-white border border-gray-200 shadow-sm p-6">
+                    <div class="flex items-center mb-4">
+                        <i data-lucide="check-circle" class="w-5 h-5 mr-2 text-gray-700"></i>
+                        <h3 class="text-lg font-medium">Actionable Recommendations</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="recommendation-item">
+                            <div class="recommendation-number">1</div>
+                            <div>
+                                <h4 class="font-medium">Implement a Structured Optimization Methodology</h4>
+                                <p class="text-gray-700">Establish clear metrics, follow a systematic workflow, and document performance improvements and decisions.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="recommendation-item">
+                            <div class="recommendation-number">2</div>
+                            <div>
+                                <h4 class="font-medium">Invest in Platform-Specific Expertise</h4>
+                                <p class="text-gray-700">Develop deep knowledge of your primary target architecture and understand specific profiling tools and optimization techniques.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="recommendation-item">
+                            <div class="recommendation-number">3</div>
+                            <div>
+                                <h4 class="font-medium">Balance Portability and Performance</h4>
+                                <p class="text-gray-700">Use abstraction layers for compatibility while implementing platform-specific optimizations for critical sections.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="recommendation-item">
+                            <div class="recommendation-number">4</div>
+                            <div>
+                                <h4 class="font-medium">Optimize Data Movement</h4>
+                                <p class="text-gray-700">Minimize data transfers, use layouts that maximize locality, and consider communication patterns in distributed applications.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="recommendation-item">
+                            <div class="recommendation-number">5</div>
+                            <div>
+                                <h4 class="font-medium">Embrace Modern Development Practices</h4>
+                                <p class="text-gray-700">Leverage containerization, implement continuous performance testing, and version control performance experiments.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="recommendation-item">
+                            <div class="recommendation-number">6</div>
+                            <div>
+                                <h4 class="font-medium">Prepare for Emerging Architectures</h4>
+                                <p class="text-gray-700">Design with future heterogeneous systems in mind, explore domain-specific languages, and experiment with ML-based auto-tuning.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-black text-white py-6 px-6 md:px-12 mt-auto">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-400 text-sm">Built By <a href="jianwei.jarvis@gmail.com" target="_blank" class="underline hover:text-white transition-colors">Jianwei</a>.</p>
+            <div class="text-gray-400 text-sm mt-2 md:mt-0">© 2025 High-Performance Computing Analysis</div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        window.addEventListener("wheel", (e)=> {
+            const isPinching = e.ctrlKey
+            if(isPinching) e.preventDefault()
+        }, { passive: false })
+        
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

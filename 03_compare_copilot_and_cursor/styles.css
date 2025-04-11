@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-geist-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  letter-spacing: -0.02em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+a {
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+input:focus, textarea:focus, select:focus, button:focus {
+  outline: none;
+}
+
+/* Card styling */
+.card, 
+.bg-white {
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+
+/* Smooth transitions */
+.rounded-md,
+.rounded-lg,
+button,
+a {
+  transition: all 0.15s ease;
+}
+
+button:hover,
+a:hover {
+  transform: translateY(-1px);
+}
+
+button:active,
+a:active {
+  transform: translateY(0);
+}
+
+/* Mobile responsiveness improvements */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+  h1 {
+    font-size: 24px;
+  }
+  
+  h2 {
+    font-size: 20px;
+  }
+  
+  h3 {
+    font-size: 18px;
+  }
+  
+  .p-6 {
+    padding: 16px;
+  }
+  
+  .space-y-6 > * + * {
+    margin-top: 16px;
+  }
+}
+
+/* Prevent zooming on mobile */
+@media (hover: none) {
+  body {
+    touch-action: pan-x pan-y;
+  }
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+table th, table td {
+  vertical-align: top;
+  text-align: left;
+}
+
+/* Fix for SVG icons in lists */
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
